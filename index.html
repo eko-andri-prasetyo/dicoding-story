@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dicoding Story - PWA</title>
+    <meta name="description" content="Aplikasi PWA untuk submission Dicoding Story. Installable, Offline, Notifikasi." />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="stylesheet" href="/src/assets/styles.css" />
+    <link rel="preconnect" href="https://tile.openstreetmap.org">
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Lewati ke konten</a>
+
+    <header class="site-header" role="banner">
+      <nav aria-label="Navigasi utama">
+        <a class="brand" href="#/">📖 Dicoding Story</a>
+        <ul class="nav">
+          <li><a href="#/stories">Stories</a></li>
+          <li><a href="#/saved">Cerita Tersimpan</a></li>
+          <li><a href="#/add">Tambah</a></li>
+          <li><a href="#/map">Peta</a></li>
+          <li><a href="#/login" id="loginLink">Login</a></li>
+          <li><button id="logoutBtn" class="link hidden">Logout</button></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main tabindex="-1" id="main" class="container" role="main" aria-live="polite"></main>
+
+    <footer class="site-footer" role="contentinfo">
+       <p>Built for Dicoding submission. PWA, Offline, Aksesibel, SPA, View Transition API.</p>
+    </footer>
+
+    <script type="module" src="/src/app/main.js"></script>
+    
+    <!-- Fallback script untuk service worker jika module gagal -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        // Fallback registration jika module gagal
+        const swPath = window.location.hostname === 'localhost' ? '/sw.js' : '/dicoding-story/sw.js';
+        navigator.serviceWorker.register(swPath)
+          .then(registration => {
+            console.log('SW registered (fallback): ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed (fallback): ', registrationError);
+          });
+      }
+    </script>
+  </body>
+</html>
